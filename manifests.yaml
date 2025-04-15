@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: demo
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: demo
@@ -15,25 +15,6 @@ spec:
       containers:
       - name: demo
         image: quay.io/redhattraining/hello-openshift:latest
-        imagePullPolicy: Always
-        resources:
-          requests:
-            cpu: "0.1"
-            memory: 60Mi
-          limits:
-            cpu: "0.2"
-            memory: 100Mi
-        ports:
-        - containerPort: 8080
-        securityContext:
-          seccompProfile: #"RuntimeDefault" or "Localhost"
-            type: RuntimeDefault
-          allowPrivilegeEscalation: false
-          runAsNonRoot: true
-          capabilities:
-            drop: ["ALL"]
-          readOnlyRootFilesystem: true
-      terminationGracePeriodSeconds: 10
 ---
 apiVersion: v1
 kind: Service
